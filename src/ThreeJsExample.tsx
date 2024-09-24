@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Canvas, MeshProps, useFrame } from "@react-three/fiber";
+import Cube from "./components/Cube";
 
 function Box(props: MeshProps) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -42,6 +43,7 @@ export default function ThreeJsExample() {
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
         <Box position={[-1.2, 0, 0]} />
         <Box position={[1.2, 0, 0]} />
+        <Cube />
       </Canvas>
     </>
   );
