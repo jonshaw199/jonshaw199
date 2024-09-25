@@ -20,12 +20,7 @@ export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
-      <Canvas camera={{ position: [0, 0, -20] }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <Cube activeIndex={activeIndex} faces={faces} />
-      </Canvas>
+    <div style={{ height: "750px", width: "100vw" }}>
       <div className="d-flex gap-1">
         <button onClick={() => setActiveIndex((idx) => getPreviousIndex(idx))}>
           Previous
@@ -34,6 +29,11 @@ export default function Home() {
           Next
         </button>
       </div>
+      <Canvas camera={{ position: [0, 0, -20] }}>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        <Cube activeIndex={activeIndex} faces={faces} />
+      </Canvas>
     </div>
   );
 }
