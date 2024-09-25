@@ -1,12 +1,12 @@
 import "./App.css";
-import Default from "./Default";
-import ThreeJsExample from "./ThreeJsExample";
+import Example from "./components/_example/Example";
+import Home from "./components/home/Home";
 
 function App() {
   return (
     <>
-      <Default />
-      <ThreeJsExample />
+      <Home />
+      <Example />
     </>
   );
 }
