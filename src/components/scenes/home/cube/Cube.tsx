@@ -2,6 +2,10 @@ import React, { useMemo, useRef } from "react";
 import { Html } from "@react-three/drei";
 import { useSpring, animated } from "@react-spring/three"; // Import react-spring for animations
 import { Group } from "three";
+import {
+  ProjectContext,
+  useProjectContext,
+} from "../../../../providers/projectProvider";
 
 function DefaultFace() {
   return <></>;
@@ -27,6 +31,7 @@ const rotationMap = [
 
 const Cube: React.FC<CubeProps> = ({ faces = [], activeIndex = 0 }) => {
   const groupRef = useRef<Group>(null);
+  const { projects } = useProjectContext();
 
   const _faces = useMemo(() => {
     const filled = Array(6).fill(<DefaultFace />);
@@ -69,7 +74,10 @@ const Cube: React.FC<CubeProps> = ({ faces = [], activeIndex = 0 }) => {
                 overflow: "auto",
               }}
             >
-              {content}
+              {/* Forward context; see https://github.com/pmndrs/react-three-fiber/issues/262 */}
+              <ProjectContext.Provider value={{ projects }}>
+                {content}
+              </ProjectContext.Provider>
             </Html>
           </mesh>
         );

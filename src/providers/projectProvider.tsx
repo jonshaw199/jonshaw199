@@ -1,22 +1,23 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Project = {
+export type Project = {
   id: string;
+  url: string;
   name: string;
+  description: string;
   tags: Set<string>;
+  images: Set<string>;
 };
 
-type Projects = Map<string, Project>;
-
 type ProjectContextProps = {
-  projects: Projects;
+  projects: Map<string, Project>;
 };
 
 const initialState: ProjectContextProps = {
   projects: new Map(),
 };
 
-const ProjectContext = createContext<ProjectContextProps>(initialState);
+export const ProjectContext = createContext<ProjectContextProps>(initialState);
 
 export const useProjectContext = () => useContext(ProjectContext);
 
@@ -24,18 +25,16 @@ type ProjectProviderProps = {
   children: React.ReactNode;
 };
 
-async function fetchProjects(): Promise<Projects> {
+async function fetchProjects(): Promise<Map<string, Project>> {
   const res = await fetch("/projects.json");
   const json = await res.json();
-  console.log(json);
   return json.reduce((projects: any, project: any) => {
-    if (project.id) {
-      projects.set(project.id, {
-        ...project,
-        tags: new Set(project.tags || []),
-      });
-    }
-    return projects;
+    return projects.set(project.id, {
+      ...project,
+      // Convert arrays to sets
+      tags: new Set(project.tags || []),
+      images: new Set(project.images || []),
+    });
   }, new Map());
 }
 

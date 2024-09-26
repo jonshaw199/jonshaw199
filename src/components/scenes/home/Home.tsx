@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import Cube from "../cube/Cube";
-import Portfolio from "../portfolio/Portfolio";
-import Resume from "../resume/Resume";
-import Overview from "../overview/Overview";
-import Contact from "../contact/Contact";
+import Cube from "./cube/Cube";
+import Portfolio from "./portfolio/Portfolio";
+import Resume from "./resume/Resume";
+import Overview from "./overview/Overview";
+import Contact from "./contact/Contact";
 
 const faces = [<Contact />, <Resume />, <Portfolio />, <Overview />];
 

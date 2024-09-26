@@ -23,5 +23,13 @@
       "MQTT5",
       "WebSocket"
     ]
+  },
+  {
+    "id": "shaw-family",
+    "url": "https://github.com/jonshaw199/shaw-family",
+    "name": "Shaw Family Hub",
+    "description": "Plan events, share media, and connect with family members.",
+    "images": ["test2.jpg"],
+    "tags": ["TypeScript", "JavaScript", "Docker", "React", "Next", "Bootstrap"]
   }
 ]
