@@ -1,0 +1,27 @@
+[
+  {
+    "id": "home",
+    "url": "https://github.com/jonshaw199/home",
+    "name": "Smart Home",
+    "description": "Introducing our state-of-the-art smart home solution, designed to seamlessly integrate monitoring, automation, and security into your daily life. Control your home with ease through our intuitive app, automate routines for ultimate convenience, and keep your loved ones safe with real-time alerts and monitoring. Transform your home into a smarter, safer, and more comfortable space where everything works together effortlessly. Experience the future of living today!",
+    "images": ["test1.jpg"],
+    "tags": [
+      "TypeScript",
+      "Python",
+      "C",
+      "C++",
+      "React Native",
+      "Redux",
+      "Expo",
+      "Django",
+      "PostgreSQL",
+      "Redis",
+      "Jest",
+      "ESP32",
+      "ESP-IDF",
+      "Arduino",
+      "MQTT5",
+      "WebSocket"
+    ]
+  }
+]

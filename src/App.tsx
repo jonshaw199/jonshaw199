@@ -1,12 +1,12 @@
 import "./App.css";
-import Example from "./components/_example/Example";
 import Home from "./components/home/Home";
+import { ProjectProvider } from "./providers/projectProvider";
 
 function App() {
   return (
-    <>
+    <ProjectProvider>
       <Home />
-    </>
+    </ProjectProvider>
   );
 }
 
