@@ -37,7 +37,7 @@
     "url": "https://github.com/jonshaw199/conky",
     "name": "System Monitor",
     "description": "Desktop overlay",
-    "images": ["test.jpg"],
+    "images": ["test1.jpg"],
     "tags": ["Lua", "Shell"]
   }
 ]
