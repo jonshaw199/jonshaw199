@@ -5,6 +5,7 @@ import Portfolio from "./portfolio/Portfolio";
 import Resume from "./resume/Resume";
 import Overview from "./overview/Overview";
 import Contact from "./contact/Contact";
+import { OrbitControls } from "@react-three/drei";
 
 const faces = [<Contact />, <Resume />, <Portfolio />, <Overview />];
 
@@ -30,9 +31,14 @@ export default function Home() {
         </button>
       </div>
       <Canvas camera={{ position: [0, 0, -20] }}>
+        {/* Add lights to the scene */}
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
+        {/* Add the cube with the activeIndex and faces props */}
         <Cube activeIndex={activeIndex} faces={faces} />
+        {/* Add OrbitControls to the scene */}
+        <OrbitControls enableZoom={true} />{" "}
+        {/* Enable zooming in/out with the scroll wheel */}
       </Canvas>
     </div>
   );
