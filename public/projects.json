@@ -31,5 +31,13 @@
     "description": "Plan events, share media, and connect with family members.",
     "images": ["test2.jpg"],
     "tags": ["TypeScript", "JavaScript", "Docker", "React", "Next", "Bootstrap"]
+  },
+  {
+    "id": "conky",
+    "url": "https://github.com/jonshaw199/conky",
+    "name": "System Monitor",
+    "description": "Desktop overlay",
+    "images": ["test.jpg"],
+    "tags": ["Lua", "Shell"]
   }
 ]
