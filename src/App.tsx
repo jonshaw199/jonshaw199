@@ -1,11 +1,11 @@
 import "./App.css";
-import Home from "./components/scenes/home2/Home";
+import WorldScene from "./components/scenes/world/WorldScene";
 import { ProjectProvider } from "./providers/projectProvider";
 
 function App() {
   return (
     <ProjectProvider>
-      <Home />
+      <WorldScene />
     </ProjectProvider>
   );
 }
