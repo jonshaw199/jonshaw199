@@ -5,7 +5,7 @@
 }
 
 .carousel-caption {
-  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
   border-radius: 25px;
   padding: 10px;
 }

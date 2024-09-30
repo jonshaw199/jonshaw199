@@ -2,12 +2,13 @@ import { Html, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { ReactNode } from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
-import LoremIpsum from "../home2/LoremIpsum";
+import LoremIpsum from "../../lorem-ipsum/LoremIpsum";
 import ProjectCarousel from "../../project-carousel/ProjectCarousel";
 import {
   ProjectContext,
   useProjectContext,
 } from "../../../providers/projectProvider";
+import AboutMe from "../../about-me/AboutMe";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
 
@@ -55,7 +56,9 @@ function Tile({
           overflow: "auto",
           background: "linear-gradient(to bottom, #f06, #f0f)",
           //backfaceVisibility: "hidden",
+          userSelect: "none",
         }}
+        draggable={false}
       >
         <ProjectContext.Provider value={{ projects }}>
           {children || <LoremIpsum />}
@@ -93,13 +96,36 @@ function Sphere({
 }
 
 function SceneContent() {
+  const distance = 20; // meters between cam and tile
+
   return (
     <>
       <ambientLight />
       <Sphere>
-        <Tile position={new Vector3(0, 0, 20)} />
-        <Tile position={new Vector3(0, 0, -20)}>
+        <Tile position={new Vector3(0, 0, -distance)}>
+          <AboutMe />
+        </Tile>
+        <Tile
+          position={
+            new Vector3(
+              Math.cos(Math.PI / 4) * distance,
+              0,
+              -Math.sin(Math.PI / 4) * distance
+            )
+          }
+        >
           <ProjectCarousel />
+        </Tile>
+        <Tile
+          position={
+            new Vector3(
+              Math.cos(Math.PI / 2) * distance,
+              0,
+              -Math.sin(Math.PI / 2) * distance
+            )
+          }
+        >
+          Contact
         </Tile>
       </Sphere>
       <OrbitControls enableZoom={false} reverseOrbit />
