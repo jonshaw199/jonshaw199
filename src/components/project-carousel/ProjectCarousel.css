@@ -1,0 +1,11 @@
+.carousel,
+.carousel-inner,
+.carousel-item {
+  height: 100%;
+}
+
+.carousel-caption {
+  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+  border-radius: 25px;
+  padding: 10px;
+}

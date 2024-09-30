@@ -1,43 +1,80 @@
 import { Html, OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { ReactNode, useMemo } from "react";
+import { Canvas } from "@react-three/fiber";
+import { ReactNode } from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
+import LoremIpsum from "../home2/LoremIpsum";
+import ProjectCarousel from "../../project-carousel/ProjectCarousel";
+import {
+  ProjectContext,
+  useProjectContext,
+} from "../../../providers/projectProvider";
 
-// Helper function to convert spherical coordinates to Cartesian
-const sphericalToCartesian = (radius: number, theta: number, phi: number) => {
-  const x = radius * Math.sin(phi) * Math.cos(theta);
-  const y = radius * Math.cos(phi);
-  const z = radius * Math.sin(phi) * Math.sin(theta);
-  return new Vector3(x, y, z);
-};
+const globalSpherePosition = new Vector3(0, 0, 0);
 
-function Sphere({
-  sphereRadius = 10,
-  hoverOffset = 0.1,
-  globalPosition = new Vector3(0, 0, 0),
+function Tile({
+  position,
+  facePosition = globalSpherePosition,
+  width = 600,
+  height = 600,
+  children,
 }: {
-  sphereRadius?: number;
-  hoverOffset?: number;
-  globalPosition?: Vector3;
+  position: Vector3;
+  facePosition?: Vector3;
+  width?: number;
+  height?: number;
+  children?: ReactNode;
 }) {
-  const tileRadius = useMemo(
-    () => sphereRadius - hoverOffset,
-    [sphereRadius, hoverOffset]
-  );
+  const { projects } = useProjectContext();
 
-  // Generating random tile positions on the surface of the sphere
-  const tiles = useMemo(() => {
-    return Array.from({ length: 25 }, (_, index) => {
-      const theta = (index / 10) * Math.PI * 2; // longitude
-      const phi = Math.random() * Math.PI; // latitude
-      const position = sphericalToCartesian(tileRadius, theta, phi);
-      return position;
-    });
-  }, [tileRadius]);
+  // Calculate rotation to face the camera
+  const lookAtMatrix = new Matrix4().lookAt(
+    facePosition,
+    position,
+    new Vector3(0, 1, 0)
+  );
+  const quaternion = new Quaternion().setFromRotationMatrix(lookAtMatrix);
+  const euler = new Euler().setFromQuaternion(quaternion);
 
   return (
-    <mesh position={globalPosition}>
-      <sphereGeometry args={[sphereRadius, 32, 32]} />
+    <Html
+      position={position}
+      rotation={euler.toArray()}
+      transform // Keeps Html components following 3D transformations
+      distanceFactor={17}
+    >
+      <div
+        className="tile-content"
+        style={{
+          backgroundColor: "red",
+          width,
+          height,
+          borderRadius: "25px",
+          //padding: "10px",
+          //transform: `perspective(100px)`,
+          //perspective: "1000px",
+          overflow: "auto",
+          background: "linear-gradient(to bottom, #f06, #f0f)",
+          //backfaceVisibility: "hidden",
+        }}
+      >
+        <ProjectContext.Provider value={{ projects }}>
+          {children || <LoremIpsum />}
+        </ProjectContext.Provider>
+      </div>
+    </Html>
+  );
+}
+
+function Sphere({
+  radius = 20,
+  children,
+}: {
+  radius?: number;
+  children: ReactNode;
+}) {
+  return (
+    <mesh position={globalSpherePosition}>
+      <sphereGeometry args={[radius, 32, 32]} />
       <meshPhysicalMaterial
         color="lightblue"
         //transmission={0.9} // Glass-like transparency
@@ -50,35 +87,7 @@ function Sphere({
         side={DoubleSide} // Show inside of the sphere
         //vertexColors={true} // Enable gradient or color variation
       />
-      {/* Loop through tile positions and render Html at those positions */}
-      {tiles.map((position, index) => {
-        // Calculate rotation to face the camera
-        const lookAtMatrix = new Matrix4().lookAt(
-          globalPosition,
-          position,
-          new Vector3(0, 1, 0)
-        );
-        const quaternion = new Quaternion().setFromRotationMatrix(lookAtMatrix);
-        const euler = new Euler().setFromQuaternion(quaternion);
-
-        return (
-          <Html
-            key={index}
-            position={position}
-            rotation={euler.toArray()}
-            transform // Keeps Html components following 3D transformations
-          >
-            <div
-              className="tile-content"
-              style={{
-                backgroundColor: "red",
-              }}
-            >
-              <h1>Tile {index + 1}</h1>
-            </div>
-          </Html>
-        );
-      })}
+      {children}
     </mesh>
   );
 }
@@ -87,8 +96,13 @@ function SceneContent() {
   return (
     <>
       <ambientLight />
-      <Sphere />
-      <OrbitControls enablePan={true} enableZoom={true} />
+      <Sphere>
+        <Tile position={new Vector3(0, 0, 20)} />
+        <Tile position={new Vector3(0, 0, -20)}>
+          <ProjectCarousel />
+        </Tile>
+      </Sphere>
+      <OrbitControls enableZoom={false} reverseOrbit />
     </>
   );
 }
