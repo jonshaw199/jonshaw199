@@ -9,22 +9,65 @@ import {
   useProjectContext,
 } from "../../../providers/projectProvider";
 import AboutMe from "../../about-me/AboutMe";
+import Contact from "../../contact/Contact";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
+const sphereRadius = 20;
+const tileRadius = 18;
+const distanceFactor = 22;
+
+type TileProps = {
+  id: string;
+  position: Vector3;
+  width?: number;
+  height?: number;
+  facePosition?: Vector3;
+  children?: ReactNode;
+};
+
+function getTilePosition({ theta, radius }: { theta: number; radius: number }) {
+  const x = radius * Math.cos(theta);
+  const z = radius * Math.sin(theta); // Central tile at z = -1
+  return new Vector3(x, 0, z); // Keep y = 0 (assuming a flat plane)
+}
+
+// Define the angles for each direction (in radians)
+const angles = {
+  east: 0, // 0 radians (0°)
+  northeast: Math.PI / 4, // π/4 radians (45°)
+  north: Math.PI / 2, // π/2 radians (90°)
+  northwest: (3 * Math.PI) / 4, // 3π/4 radians (135°)
+  west: Math.PI, // π radians (180°)
+  southwest: (5 * Math.PI) / 4, // 5π/4 radians (225°)
+  south: (3 * Math.PI) / 2, // 3π/2 radians (270°)
+  southeast: (7 * Math.PI) / 4, // 7π/4 radians (315°)
+};
+
+const tiles: { [id: string]: TileProps } = {
+  about: {
+    id: "about",
+    position: getTilePosition({ theta: angles.south, radius: tileRadius }),
+    children: <AboutMe />,
+  },
+  projects: {
+    id: "projects",
+    position: getTilePosition({ theta: angles.east, radius: tileRadius }),
+    children: <ProjectCarousel />,
+  },
+  contact: {
+    id: "contact",
+    position: getTilePosition({ theta: angles.north, radius: tileRadius }),
+    children: <Contact />,
+  },
+};
 
 function Tile({
   position,
   facePosition = globalSpherePosition,
   width = 600,
   height = 600,
-  children,
-}: {
-  position: Vector3;
-  facePosition?: Vector3;
-  width?: number;
-  height?: number;
-  children?: ReactNode;
-}) {
+  children = <LoremIpsum />,
+}: TileProps) {
   const { projects } = useProjectContext();
 
   // Calculate rotation to face the camera
@@ -41,7 +84,7 @@ function Tile({
       position={position}
       rotation={euler.toArray()}
       transform // Keeps Html components following 3D transformations
-      distanceFactor={17}
+      distanceFactor={distanceFactor}
     >
       <div
         className="tile-content"
@@ -50,7 +93,6 @@ function Tile({
           width,
           height,
           borderRadius: "25px",
-          //padding: "10px",
           //transform: `perspective(100px)`,
           //perspective: "1000px",
           overflow: "auto",
@@ -61,7 +103,7 @@ function Tile({
         draggable={false}
       >
         <ProjectContext.Provider value={{ projects }}>
-          {children || <LoremIpsum />}
+          {children}
         </ProjectContext.Provider>
       </div>
     </Html>
@@ -69,7 +111,7 @@ function Tile({
 }
 
 function Sphere({
-  radius = 20,
+  radius = sphereRadius,
   children,
 }: {
   radius?: number;
@@ -96,37 +138,13 @@ function Sphere({
 }
 
 function SceneContent() {
-  const distance = 20; // meters between cam and tile
-
   return (
     <>
       <ambientLight />
       <Sphere>
-        <Tile position={new Vector3(0, 0, -distance)}>
-          <AboutMe />
-        </Tile>
-        <Tile
-          position={
-            new Vector3(
-              Math.cos(Math.PI / 4) * distance,
-              0,
-              -Math.sin(Math.PI / 4) * distance
-            )
-          }
-        >
-          <ProjectCarousel />
-        </Tile>
-        <Tile
-          position={
-            new Vector3(
-              Math.cos(Math.PI / 2) * distance,
-              0,
-              -Math.sin(Math.PI / 2) * distance
-            )
-          }
-        >
-          Contact
-        </Tile>
+        {Object.values(tiles).map((tileProps) => (
+          <Tile {...tileProps} key={tileProps.id} />
+        ))}
       </Sphere>
       <OrbitControls enableZoom={false} reverseOrbit />
     </>
