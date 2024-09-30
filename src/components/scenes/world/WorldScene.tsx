@@ -1,6 +1,11 @@
-import { Html, OrbitControls } from "@react-three/drei";
+import {
+  Html,
+  OrbitControls,
+  Text3D,
+  useMatcapTexture,
+} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
 import LoremIpsum from "../../lorem-ipsum/LoremIpsum";
 import ProjectCarousel from "../../project-carousel/ProjectCarousel";
@@ -12,9 +17,9 @@ import AboutMe from "../../about-me/AboutMe";
 import Contact from "../../contact/Contact";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
-const sphereRadius = 20;
-const tileRadius = 18;
-const distanceFactor = 22;
+const sphereRadius = 25;
+const tileRadius = 45;
+const distanceFactor = 45;
 
 type TileProps = {
   id: string;
@@ -25,10 +30,18 @@ type TileProps = {
   children?: ReactNode;
 };
 
-function getTilePosition({ theta, radius }: { theta: number; radius: number }) {
+function getObjectPosition({
+  theta,
+  radius,
+  yOffset = 0,
+}: {
+  theta: number;
+  radius: number;
+  yOffset?: number;
+}) {
   const x = radius * Math.cos(theta);
   const z = radius * Math.sin(theta); // Central tile at z = -1
-  return new Vector3(x, 0, z); // Keep y = 0 (assuming a flat plane)
+  return new Vector3(x, yOffset, z); // Keep y = 0 (assuming a flat plane)
 }
 
 // Define the angles for each direction (in radians)
@@ -46,17 +59,22 @@ const angles = {
 const tiles: { [id: string]: TileProps } = {
   about: {
     id: "about",
-    position: getTilePosition({ theta: angles.south, radius: tileRadius }),
+    position: getObjectPosition({
+      theta: angles.south,
+      radius: tileRadius,
+      yOffset: -10,
+    }),
     children: <AboutMe />,
+    height: 300,
   },
   projects: {
     id: "projects",
-    position: getTilePosition({ theta: angles.east, radius: tileRadius }),
+    position: getObjectPosition({ theta: angles.east, radius: tileRadius }),
     children: <ProjectCarousel />,
   },
   contact: {
     id: "contact",
-    position: getTilePosition({ theta: angles.north, radius: tileRadius }),
+    position: getObjectPosition({ theta: angles.north, radius: tileRadius }),
     children: <Contact />,
   },
 };
@@ -137,7 +155,12 @@ function Sphere({
   );
 }
 
+const namePosition = new Vector3(-10, 8, -15);
+const titlePosition = new Vector3(-10, 5, -15);
+
 function SceneContent() {
+  const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9");
+
   return (
     <>
       <ambientLight />
@@ -145,6 +168,14 @@ function SceneContent() {
         {Object.values(tiles).map((tileProps) => (
           <Tile {...tileProps} key={tileProps.id} />
         ))}
+        <Text3D position={namePosition} scale={2.8} font={"/gt.json"}>
+          Jon Shaw
+          <meshMatcapMaterial color="white" matcap={matcapTexture} />
+        </Text3D>
+        <Text3D position={titlePosition} scale={1.3} font={"/gt.json"}>
+          Software Engineer
+          <meshMatcapMaterial color="white" matcap={matcapTexture} />
+        </Text3D>
       </Sphere>
       <OrbitControls enableZoom={false} reverseOrbit />
     </>
