@@ -21,6 +21,7 @@ const globalSpherePosition = new Vector3(0, 0, 0);
 const sphereRadius = 300;
 const tileRadius = 45;
 const distanceFactor = 42;
+const maxCameraDistance = sphereRadius / 2;
 
 type TileProps = {
   id: string;
@@ -188,7 +189,7 @@ function SceneContent() {
           <meshMatcapMaterial color="white" matcap={matcapTexture} />
         </Text3D>
       </Sphere>
-      <OrbitControls reverseOrbit />
+      <OrbitControls reverseOrbit maxDistance={maxCameraDistance} />
       <Stars
           radius={50}         // Radius of the sphere where stars are placed
           depth={50}           // Star field depth
