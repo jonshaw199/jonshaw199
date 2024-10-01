@@ -75,7 +75,7 @@ const tiles: { [id: string]: TileProps } = {
   },
   contact: {
     id: "contact",
-    position: getObjectPosition({ theta: angles.north, radius: tileRadius }),
+    position: getObjectPosition({ theta: angles.west, radius: tileRadius }),
     children: <Contact />,
   },
 };
