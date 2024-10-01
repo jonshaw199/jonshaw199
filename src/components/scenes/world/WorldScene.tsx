@@ -80,8 +80,8 @@ const tiles: { [id: string]: TileProps } = {
   },
 };
 
-const namePosition = new Vector3(-10, 7, -15);
-const titlePosition = new Vector3(-10, 4.75, -15);
+const namePosition = new Vector3(-28.5, 15, -50);
+const titlePosition = new Vector3(-23, 10, -50);
 
 function Tile({
   position,
@@ -169,11 +169,11 @@ function SceneContent() {
         {Object.values(tiles).map((tileProps) => (
           <Tile {...tileProps} key={tileProps.id} />
         ))}
-        <Text3D position={namePosition} scale={2.8} font={"/gt.json"}>
+        <Text3D position={namePosition} scale={8} font={"/gt.json"}>
           Jon Shaw
           <meshMatcapMaterial color="white" matcap={matcapTexture} />
         </Text3D>
-        <Text3D position={titlePosition} scale={1.3} font={"/gt.json"}>
+        <Text3D position={titlePosition} scale={3} font={"/gt.json"}>
           Software Engineer
           <meshMatcapMaterial color="white" matcap={matcapTexture} />
         </Text3D>
