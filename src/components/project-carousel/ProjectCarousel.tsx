@@ -26,7 +26,7 @@ export default function ProjectCarousel() {
             <p>{project.description}</p>
             <p className="d-flex gap-3 align-items-center justify-content-center">
               <div>See it on:</div>
-              <Button variant="ghost" className="d-flex gap-1 align-items-center p-0" style={{color: "white"}} href={project.url} target="_blank">
+              <Button variant="ghost" className="d-flex gap-1 align-items-center p-0 border-0 text-white" href={project.url} target="_blank" draggable={false}>
                 <FaGithub />
                 GitHub
               </Button>
@@ -44,7 +44,7 @@ export default function ProjectCarousel() {
   );
 
   return (
-    <Carousel fade interval={3000}>
+    <Carousel interval={3000} draggable={false}>
       {slides}
     </Carousel>
   );

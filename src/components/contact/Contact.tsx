@@ -84,6 +84,7 @@ export default function Contact() {
             value={formState.name}
             onChange={handleChange}
             isInvalid={!!errors.name}
+            className="border-0"
           />
           <Form.Control.Feedback type="invalid">
             {errors.name}
@@ -99,6 +100,7 @@ export default function Contact() {
             value={formState.email}
             onChange={handleChange}
             isInvalid={!!errors.email}
+            className="border-0"
           />
           <Form.Control.Feedback type="invalid">
             {errors.email}
@@ -115,6 +117,7 @@ export default function Contact() {
             value={formState.message}
             onChange={handleChange}
             isInvalid={!!errors.message}
+            className="border-0"
           />
           <Form.Control.Feedback type="invalid">
             {errors.message}
