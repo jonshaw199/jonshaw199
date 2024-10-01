@@ -18,7 +18,7 @@ export default function AboutMe() {
         that push the boundaries of innovation. Please explore my work, and
         let’s connect if you’d like to collaborate!
       </p>
-        <div className="d-flex gap-4 align-items-center">
+        <div className="d-flex gap-2 align-items-center">
           <div>Find me on: </div>
           <Button draggable={false} href="https://linkedin.com/in/jonshaw199" target="_blank" variant="primary" className="border-0 align-items-center d-flex gap-1 text-white"><FaLinkedin color="white" />LinkedIn</Button>
           <Button draggable={false} href="https://github.com/jonshaw199" target="_blank" variant="primary" className="border-0 d-flex align-items-center gap-1 text-white"><FaGithub color="white" />GitHub</Button>
