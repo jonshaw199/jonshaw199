@@ -18,7 +18,7 @@ import AboutMe from "../../about-me/AboutMe";
 import Contact from "../../contact/Contact";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
-const sphereRadius = 100;
+const sphereRadius = 300;
 const tileRadius = 45;
 const distanceFactor = 42;
 
@@ -180,9 +180,9 @@ function SceneContent() {
       </Sphere>
       <OrbitControls reverseOrbit />
       <Stars
-          radius={20}         // Radius of the sphere where stars are placed
-          depth={40}           // Star field depth
-          count={5000}         // Number of stars
+          radius={50}         // Radius of the sphere where stars are placed
+          depth={50}           // Star field depth
+          count={3000}         // Number of stars
           fade={true}          // Fades stars based on camera position          
         />
     </>
