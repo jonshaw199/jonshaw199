@@ -6,7 +6,7 @@ import {
   useMatcapTexture,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { ReactNode} from "react";
+import { ReactNode, useMemo} from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
 import LoremIpsum from "../../lorem-ipsum/LoremIpsum";
 import ProjectCarousel from "../../project-carousel/ProjectCarousel";
@@ -92,21 +92,24 @@ function Tile({
 }: TileProps) {
   const { projects } = useProjectContext();
 
-  // Calculate rotation to face the camera
-  const lookAtMatrix = new Matrix4().lookAt(
-    facePosition,
-    position,
-    new Vector3(0, 1, 0)
-  );
-  const quaternion = new Quaternion().setFromRotationMatrix(lookAtMatrix);
-  const euler = new Euler().setFromQuaternion(quaternion);
+  const euler = useMemo(() => {
+    const lookAtMatrix = new Matrix4().lookAt(
+      facePosition,
+      position,
+      new Vector3(0, 1, 0)
+    );
+    const quaternion = new Quaternion().setFromRotationMatrix(lookAtMatrix);
+    
+    return new Euler().setFromQuaternion(quaternion).toArray();
+  }, [facePosition, position])
 
   return (
     <Html
       position={position}
-      rotation={euler.toArray()}
+      rotation={euler}
       transform // Keeps Html components following 3D transformations
       distanceFactor={distanceFactor}
+      scale={0.5}
     >
       <div
         className="tile-content"
@@ -121,6 +124,7 @@ function Tile({
           background: "linear-gradient(to bottom, #f06, #f0f)",
           //backfaceVisibility: "hidden",
           userSelect: "none",
+          transform: 'scale(2)'
         }}
         draggable={false}
       >
