@@ -1,11 +1,12 @@
 import {
   Html,
   OrbitControls,
+  Stars,
   Text3D,
   useMatcapTexture,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { ReactNode, useMemo } from "react";
+import { ReactNode} from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
 import LoremIpsum from "../../lorem-ipsum/LoremIpsum";
 import ProjectCarousel from "../../project-carousel/ProjectCarousel";
@@ -17,9 +18,9 @@ import AboutMe from "../../about-me/AboutMe";
 import Contact from "../../contact/Contact";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
-const sphereRadius = 25;
+const sphereRadius = 100;
 const tileRadius = 45;
-const distanceFactor = 45;
+const distanceFactor = 42;
 
 type TileProps = {
   id: string;
@@ -142,7 +143,7 @@ function Sphere({
     <mesh position={globalSpherePosition}>
       <sphereGeometry args={[radius, 32, 32]} />
       <meshPhysicalMaterial
-        color="lightblue"
+        color="black"
         //transmission={0.9} // Glass-like transparency
         //transparent={true}
         //opacity={0.5} // Adjust opacity
@@ -177,7 +178,13 @@ function SceneContent() {
           <meshMatcapMaterial color="white" matcap={matcapTexture} />
         </Text3D>
       </Sphere>
-      <OrbitControls enableZoom={false} reverseOrbit />
+      <OrbitControls reverseOrbit />
+      <Stars
+          radius={20}         // Radius of the sphere where stars are placed
+          depth={40}           // Star field depth
+          count={5000}         // Number of stars
+          fade={true}          // Fades stars based on camera position          
+        />
     </>
   );
 }
