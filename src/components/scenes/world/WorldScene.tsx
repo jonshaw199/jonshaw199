@@ -5,8 +5,8 @@ import {
   Text3D,
   useMatcapTexture,
 } from "@react-three/drei";
-import { Canvas, useThree } from "@react-three/fiber";
-import { ReactNode, useEffect, useMemo, useState} from "react";
+import { Canvas } from "@react-three/fiber";
+import { ReactNode, useMemo, useState} from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
 import LoremIpsum from "../../lorem-ipsum/LoremIpsum";
 import ProjectCarousel from "../../project-carousel/ProjectCarousel";
@@ -201,10 +201,8 @@ function SceneContent() {
 
 export default function WorldScene() {
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
-      <Canvas>
+    <Canvas style={{zIndex: 0}}>
         <SceneContent />
-      </Canvas>
-    </div>
+    </Canvas>
   );
 }
