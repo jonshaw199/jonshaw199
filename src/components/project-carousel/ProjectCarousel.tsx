@@ -22,20 +22,20 @@ export default function ProjectCarousel() {
           }}
         >
           <Carousel.Caption>
-            <h3>{project.name}</h3>
-            <p>{project.description}</p>
-            <div className="d-flex gap-3 align-items-center justify-content-center pb-3">
-              <div>See it on:</div>
-              <Button variant="ghost" className="d-flex gap-1 align-items-center p-0 border-0 text-white" href={project.url} target="_blank" draggable={false}>
-                <FaGithub />
-                GitHub
-              </Button>
-            </div>
+            <h3 className="m-0">{project.name}</h3>
+            <div>{project.description}</div>
             <div className="d-flex gap-1 flex-wrap justify-content-center">
-              <div style={{fontSize: "0.9rem"}}>Tech: </div>
+              <div>Built with:</div>
               {[...project.tags.values()].map((tag) => (
                 <Badge key={`tag_${tag}`} bg="secondary">{tag}</Badge>
               ))}
+            </div>
+            <div className="d-flex gap-2 align-items-center justify-content-center">
+              <div>See it on:</div>
+              <Button variant="primary" size="sm" className="d-flex gap-1 align-items-center text-white border-0" href={project.url} target="_blank" draggable={false}>
+                <FaGithub />
+                GitHub
+              </Button>
             </div>
           </Carousel.Caption>
         </Carousel.Item>
@@ -44,8 +44,11 @@ export default function ProjectCarousel() {
   );
 
   return (
-    <Carousel interval={3000} draggable={false}>
-      {slides}
-    </Carousel>
+    <>
+      <div style={{position: "absolute", zIndex: 1, display: "flex", justifyContent: "center", width: "100%", padding: "1rem", color: "white", background: "rgba(0, 0, 0, 0.2)"}}><h1 className="m-0">Featured Projects</h1></div>
+      <Carousel interval={3000} draggable={false}>
+        {slides}
+      </Carousel>
+    </>
   );
 }

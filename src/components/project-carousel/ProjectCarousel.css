@@ -5,7 +5,14 @@
 }
 
 .carousel-caption {
-  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 25px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  transform: scale(2);
 }
