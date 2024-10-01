@@ -5,8 +5,8 @@ import {
   Text3D,
   useMatcapTexture,
 } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { ReactNode, useMemo} from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { ReactNode, useEffect, useMemo, useState} from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
 import LoremIpsum from "../../lorem-ipsum/LoremIpsum";
 import ProjectCarousel from "../../project-carousel/ProjectCarousel";
@@ -99,7 +99,6 @@ function Tile({
       new Vector3(0, 1, 0)
     );
     const quaternion = new Quaternion().setFromRotationMatrix(lookAtMatrix);
-    
     return new Euler().setFromQuaternion(quaternion).toArray();
   }, [facePosition, position])
 
@@ -143,8 +142,15 @@ function Sphere({
   radius?: number;
   children: ReactNode;
 }) {
+  /*
+    There is a bug where the `Html` component doesn't show on first render; it
+    does show after moving the camera, resizing the page, etc.; to fix this, we
+    wait to render children until after the parent has been rendered
+  */
+  const [renderChildren, setRenderChildren] = useState(false);
+
   return (
-    <mesh position={globalSpherePosition}>
+    <mesh position={globalSpherePosition} onAfterRender={() => setRenderChildren(true)}>
       <sphereGeometry args={[radius, 32, 32]} />
       <meshPhysicalMaterial
         color="black"
@@ -158,7 +164,7 @@ function Sphere({
         side={DoubleSide} // Show inside of the sphere
         //vertexColors={true} // Enable gradient or color variation
       />
-      {children}
+      {renderChildren && children}
     </mesh>
   );
 }
