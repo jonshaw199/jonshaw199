@@ -79,6 +79,9 @@ const tiles: { [id: string]: TileProps } = {
   },
 };
 
+const namePosition = new Vector3(-10, 7, -15);
+const titlePosition = new Vector3(-10, 4.75, -15);
+
 function Tile({
   position,
   facePosition = globalSpherePosition,
@@ -154,9 +157,6 @@ function Sphere({
     </mesh>
   );
 }
-
-const namePosition = new Vector3(-10, 8, -15);
-const titlePosition = new Vector3(-10, 5, -15);
 
 function SceneContent() {
   const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9");
