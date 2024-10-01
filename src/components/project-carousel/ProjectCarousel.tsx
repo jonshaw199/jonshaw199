@@ -24,19 +24,19 @@ export default function ProjectCarousel() {
           <Carousel.Caption>
             <h3>{project.name}</h3>
             <p>{project.description}</p>
-            <p className="d-flex gap-3 align-items-center justify-content-center">
+            <div className="d-flex gap-3 align-items-center justify-content-center pb-3">
               <div>See it on:</div>
               <Button variant="ghost" className="d-flex gap-1 align-items-center p-0 border-0 text-white" href={project.url} target="_blank" draggable={false}>
                 <FaGithub />
                 GitHub
               </Button>
-            </p>
-            <p className="d-flex gap-1 flex-wrap justify-content-center">
+            </div>
+            <div className="d-flex gap-1 flex-wrap justify-content-center">
               <div style={{fontSize: "0.9rem"}}>Tech: </div>
               {[...project.tags.values()].map((tag) => (
                 <Badge key={`tag_${tag}`} bg="secondary">{tag}</Badge>
               ))}
-            </p>
+            </div>
           </Carousel.Caption>
         </Carousel.Item>
       )),
