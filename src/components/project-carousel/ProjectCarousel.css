@@ -16,3 +16,9 @@
 .carousel-control-prev-icon, .carousel-control-next-icon {
   transform: scale(2);
 }
+
+.carousel-control-prev, .carousel-control-next {
+  user-select: none;  /* Prevent text selection */
+  -webkit-user-drag: none; /* Prevent drag effect in WebKit browsers */
+  pointer-events: auto; /* Ensure elements are clickable */
+}

@@ -1,14 +1,27 @@
 import Carousel from "react-bootstrap/Carousel";
 import { useProjectContext } from "../../providers/projectProvider";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import "./ProjectCarousel.css";
 import { Badge, Button } from "react-bootstrap";
 import { FaGithub } from "react-icons/fa";
 
+// Prevent "ghost" prev/next buttons when clicking and dragging
+// These attributes arent exposed in react
+// TODO: look for CSS-only workaround that still allows clicking (button) but not dragging
+const disablePrevNextDrag = () => {
+  // Disable dragging for the previous/next controls
+  const prevControl = document.querySelector('.carousel-control-prev');
+  const nextControl = document.querySelector('.carousel-control-next');
+  if (prevControl) prevControl.setAttribute('draggable', 'false');
+  if (nextControl) nextControl.setAttribute('draggable', 'false');
+}
+
 export default function ProjectCarousel() {
   const { projects } = useProjectContext();
 
-  console.log(projects);
+  useEffect(() => {
+    disablePrevNextDrag();
+  }, []);
 
   const slides = useMemo(
     () =>
@@ -27,7 +40,7 @@ export default function ProjectCarousel() {
             <div className="d-flex gap-1 flex-wrap justify-content-center">
               <div>Built with:</div>
               {[...project.tags.values()].map((tag) => (
-                <Badge key={`tag_${tag}`} bg="secondary">{tag}</Badge>
+                <Badge key={`tag_${tag}`} bg="secondary" pill>{tag}</Badge>
               ))}
             </div>
             <div className="d-flex gap-2 align-items-center justify-content-center">

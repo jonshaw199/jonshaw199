@@ -20,8 +20,8 @@ export default function AboutMe() {
       </p>
         <div className="d-flex gap-4 align-items-center">
           <div>Find me on: </div>
-          <Button draggable={false} style={{border: "none"}} href="https://linkedin.com/in/jonshaw199" target="_blank" variant="ghost" className="p-0 align-items-center d-flex gap-1 text-white"><FaLinkedin color="white" />LinkedIn</Button>
-          <Button draggable={false} style={{border: "none"}} href="https://github.com/jonshaw199" target="_blank" variant="ghost" className="p-0 d-flex align-items-center gap-1 text-white"><FaGithub color="white" />GitHub</Button>
+          <Button draggable={false} href="https://linkedin.com/in/jonshaw199" target="_blank" variant="primary" className="border-0 align-items-center d-flex gap-1 text-white"><FaLinkedin color="white" />LinkedIn</Button>
+          <Button draggable={false} href="https://github.com/jonshaw199" target="_blank" variant="primary" className="border-0 d-flex align-items-center gap-1 text-white"><FaGithub color="white" />GitHub</Button>
         </div>
     </div>
   );
