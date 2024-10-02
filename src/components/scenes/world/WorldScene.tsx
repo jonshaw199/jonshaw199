@@ -16,7 +16,7 @@ import {
 } from "../../../providers/projectProvider";
 import AboutMe from "../../about-me/AboutMe";
 import Contact from "../../contact/Contact";
-import Ships from "../../ships/Ships";
+import Ships, { DeathStar } from "../../ships/Ships";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
 const sphereRadius = 500;
@@ -171,6 +171,13 @@ function Sphere({
   );
 }
 
+const deathStarPosition = getObjectPosition({
+  theta: angles.north,
+  radius: tileRadius,
+});
+deathStarPosition.y = 20;
+deathStarPosition.x = 20;
+
 function SceneContent() {
   const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9");
 
@@ -191,6 +198,7 @@ function SceneContent() {
         </Text3D>
       </Sphere>
       <Ships />
+      <DeathStar position={deathStarPosition.toArray()} scale={1.5} />
       <OrbitControls reverseOrbit />
       <Stars
         radius={50} // Radius of the sphere where stars are placed
