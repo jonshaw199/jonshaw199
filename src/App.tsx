@@ -4,7 +4,7 @@ import WorldScene from "./components/scenes/world/WorldScene";
 import { ProjectProvider } from "./providers/projectProvider";
 import _Loading from "./components/loading/Loading";
 
-const loadingTimeMs = 2000;
+const loadingTimeMs = 3000;
 
 function Loading() {
   return (

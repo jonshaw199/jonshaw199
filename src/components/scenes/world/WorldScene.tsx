@@ -1,12 +1,13 @@
 import {
   Html,
   OrbitControls,
+  SpotLight,
   Stars,
   Text3D,
   useMatcapTexture,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { ReactNode, useMemo, useState} from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { DoubleSide, Euler, Matrix4, Quaternion, Vector3 } from "three";
 import LoremIpsum from "../../lorem-ipsum/LoremIpsum";
 import ProjectCarousel from "../../project-carousel/ProjectCarousel";
@@ -19,7 +20,7 @@ import Contact from "../../contact/Contact";
 import Ships from "../../ships/Ships";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
-const sphereRadius = 300;
+const sphereRadius = 500;
 const tileRadius = 45;
 const distanceFactor = 42;
 const maxCameraDistance = sphereRadius / 2;
@@ -102,7 +103,7 @@ function Tile({
     );
     const quaternion = new Quaternion().setFromRotationMatrix(lookAtMatrix);
     return new Euler().setFromQuaternion(quaternion).toArray();
-  }, [facePosition, position])
+  }, [facePosition, position]);
 
   return (
     <Html
@@ -119,13 +120,10 @@ function Tile({
           width,
           height,
           borderRadius: "25px",
-          //transform: `perspective(100px)`,
-          //perspective: "1000px",
           overflow: "auto",
           background: "linear-gradient(to bottom, #f06, #f0f)",
-          //backfaceVisibility: "hidden",
           userSelect: "none",
-          transform: 'scale(2)'
+          transform: "scale(2)",
         }}
         draggable={false}
       >
@@ -152,7 +150,10 @@ function Sphere({
   const [renderChildren, setRenderChildren] = useState(false);
 
   return (
-    <mesh position={globalSpherePosition} onAfterRender={() => setRenderChildren(true)}>
+    <mesh
+      position={globalSpherePosition}
+      onAfterRender={() => setRenderChildren(true)}
+    >
       <sphereGeometry args={[radius, 32, 32]} />
       <meshPhysicalMaterial
         color="black"
@@ -176,7 +177,8 @@ function SceneContent() {
 
   return (
     <>
-      <ambientLight  />
+      <ambientLight />
+      <SpotLight lookAt={() => new Vector3(0, 0, 0)} />
       <Sphere>
         {Object.values(tiles).map((tileProps) => (
           <Tile {...tileProps} key={tileProps.id} />
@@ -193,19 +195,19 @@ function SceneContent() {
       <Ships />
       <OrbitControls reverseOrbit />
       <Stars
-          radius={50}         // Radius of the sphere where stars are placed
-          depth={50}           // Star field depth
-          count={3000}         // Number of stars
-          fade={true}          // Fades stars based on camera position          
-        />
+        radius={50} // Radius of the sphere where stars are placed
+        depth={50} // Star field depth
+        count={3000} // Number of stars
+        fade={true} // Fades stars based on camera position
+      />
     </>
   );
 }
 
 export default function WorldScene() {
   return (
-    <Canvas style={{zIndex: 0}}>
-        <SceneContent />
+    <Canvas style={{ zIndex: 0 }}>
+      <SceneContent />
     </Canvas>
   );
 }

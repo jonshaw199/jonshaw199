@@ -1,8 +1,9 @@
 import { useGLTF } from "@react-three/drei";
-import { PrimitiveProps, useFrame, useLoader } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { PrimitiveProps, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import { Vector3 } from "three";
-import { OBJLoader } from "three-stdlib";
+
+const sceneBounds = 250;
 
 // Utility functions
 function getRandomVector(min = -100, max = 100) {
@@ -77,30 +78,46 @@ function Ship({
   return <primitive ref={shipRef} {...rest} object={scene.clone()} />;
 }
 
+const ships: { props: ShipProps; count: number }[] = [
+  {
+    count: 20,
+    props: {
+      speed: 0.1,
+      gltfAssetPath: "/models/star_wars_laati_gunship/scene.gltf",
+    },
+  },
+  {
+    count: 20,
+    props: {
+      speed: 0.05,
+      gltfAssetPath: "/models/cr90.glb",
+      scale: 2,
+    },
+  },
+  {
+    count: 2,
+    props: {
+      speed: 0.15,
+      gltfAssetPath: "/models/imperial_star_destroyer_mark_i/scene.gltf",
+      scale: 0.03,
+    },
+  },
+];
+
 // Ships component that initializes the ships and renders them
-export default function Ships({ numShips = 10, sceneBounds = 100 }) {
-  // Initialize ships
-  const ships: ShipProps[] = useMemo(() => {
+export default function Ships() {
+  const _ships = ships.reduce((arr: ShipProps[], { count, props }) => {
     return [
-      ...Array(Math.floor(numShips / 2))
+      ...arr,
+      ...Array(count)
         .fill(null)
-        .map(() => ({
-          speed: 0.1,
-          gltfAssetPath: "/models/star_wars_laati_gunship/scene.gltf",
-          scale: 0.5,
-        })),
-      ...Array(Math.floor(numShips / 2))
-        .fill(null)
-        .map(() => ({
-          speed: 0.05,
-          //gltfAssetPath: "/models/tie.glb",
-        })),
+        .map(() => props),
     ];
-  }, [numShips]);
+  }, []);
 
   return (
     <>
-      {ships.map((props, i) => (
+      {_ships.map((props, i) => (
         <Ship key={`Ship_${i}`} sceneBounds={sceneBounds} {...props} />
       ))}
     </>

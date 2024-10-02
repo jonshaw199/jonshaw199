@@ -1,0 +1,11 @@
+Model Information:
+* title:	Imperial Star Destroyer Mark I
+* source:	https://sketchfab.com/3d-models/imperial-star-destroyer-mark-i-d9c2b3909b0d4a9a815a0d9b7179aee4
+* author:	MichaelEGA (https://sketchfab.com/michael.evan.allison)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Imperial Star Destroyer Mark I" (https://sketchfab.com/3d-models/imperial-star-destroyer-mark-i-d9c2b3909b0d4a9a815a0d9b7179aee4) by MichaelEGA (https://sketchfab.com/michael.evan.allison) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
