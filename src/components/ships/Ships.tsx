@@ -1,10 +1,34 @@
 import { useGLTF } from "@react-three/drei";
 import { PrimitiveProps, useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
 
 const sceneBounds = 250;
 const shipSpeedRange = [0.01, 1];
+
+const ships: { props: ShipProps; count: number }[] = [
+  {
+    count: 10,
+    props: {
+      gltfAssetPath: "/models/star_wars_laati_gunship/scene.gltf",
+      scale: 0.5,
+    },
+  },
+  {
+    count: 10,
+    props: {
+      gltfAssetPath: "/models/cr90.glb",
+      scale: 2,
+    },
+  },
+  {
+    count: 2,
+    props: {
+      gltfAssetPath: "/models/imperial_star_destroyer_mark_i/scene.gltf",
+      scale: 0.05,
+    },
+  },
+];
 
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
@@ -27,8 +51,8 @@ function getRandomPointOnSphere(radius = sceneBounds) {
 }
 
 function getRandomOffset(
-  minOffset = sceneBounds / 6,
-  maxOffset = sceneBounds / 3
+  minOffset = sceneBounds / 4,
+  maxOffset = sceneBounds / 2
 ) {
   // Generate a random offset within the specified range
   const range = maxOffset - minOffset;
@@ -122,8 +146,7 @@ function Ship({
   ...rest
 }: ShipProps) {
   const { scene } = useGLTF(gltfAssetPath);
-  const shipRef = useRef<any>(); // Ref for directly manipulating position
-
+  const shipRef = useRef<any>();
   const positionsRef = useRef(getInitialShipPositions());
 
   useFrame(() => {
@@ -175,29 +198,6 @@ export function DeathStar({
     />
   );
 }
-
-const ships: { props: ShipProps; count: number }[] = [
-  {
-    count: 10,
-    props: {
-      gltfAssetPath: "/models/star_wars_laati_gunship/scene.gltf",
-    },
-  },
-  {
-    count: 10,
-    props: {
-      gltfAssetPath: "/models/cr90.glb",
-      scale: 2,
-    },
-  },
-  {
-    count: 3,
-    props: {
-      gltfAssetPath: "/models/imperial_star_destroyer_mark_i/scene.gltf",
-      scale: 0.03,
-    },
-  },
-];
 
 // Ships component that initializes the ships and renders them
 export default function Ships() {

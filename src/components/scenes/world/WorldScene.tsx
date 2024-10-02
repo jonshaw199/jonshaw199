@@ -24,6 +24,9 @@ const tileRadius = 45;
 const distanceFactor = 42;
 const maxCameraDistance = 15;
 
+const namePosition = new Vector3(-28.5, 15, -40);
+const titlePosition = new Vector3(-23, 10, -40);
+
 type TileProps = {
   id: string;
   position: Vector3;
@@ -81,9 +84,6 @@ const tiles: { [id: string]: TileProps } = {
     children: <Contact />,
   },
 };
-
-const namePosition = new Vector3(-28.5, 15, -50);
-const titlePosition = new Vector3(-23, 10, -50);
 
 function Tile({
   position,
