@@ -1,6 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import { PrimitiveProps, useFrame } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Vector3 } from "three";
 
 const sceneBounds = 250;

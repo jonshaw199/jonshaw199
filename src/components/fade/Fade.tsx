@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import styles from "./Fade.module.css";
 
 const Fade = ({ show, children }: { show: boolean; children: ReactNode }) => {

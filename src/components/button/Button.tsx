@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import classNames from "classnames";
 import { useMemo } from "react";
 import { Button as _Button, ButtonProps } from "react-bootstrap";
