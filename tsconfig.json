@@ -8,6 +8,5 @@
     "paths": {
       "@/*": ["./src/*"] // Maps `@/...` to the `src/` directory
     }
-  },
-  "include": ["src"]
+  }
 }
