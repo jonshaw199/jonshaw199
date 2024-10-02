@@ -16,7 +16,7 @@ import styles from "./Loading.module.css";
 export default function Loading() {
   return (
     <div className="d-flex flex-column gap-3 justify-content-center align-items-center w-100 h-100">
-      <RingLoader color="#f0f" size={150} />
+      <RingLoader color="#f0f" size={100} />
       <div className="d-flex">
         <div
           style={{
