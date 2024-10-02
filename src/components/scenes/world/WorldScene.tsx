@@ -1,7 +1,6 @@
 import {
   Html,
   OrbitControls,
-  SpotLight,
   Stars,
   Text3D,
   useMatcapTexture,
@@ -178,7 +177,6 @@ function SceneContent() {
   return (
     <>
       <ambientLight />
-      <SpotLight lookAt={() => new Vector3(0, 0, 0)} />
       <Sphere>
         {Object.values(tiles).map((tileProps) => (
           <Tile {...tileProps} key={tileProps.id} />
