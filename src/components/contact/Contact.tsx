@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Alert } from "react-bootstrap";
+import Button from "../button/Button";
 
 // Define the form state type
 type FormState = {
@@ -125,7 +126,7 @@ export default function Contact() {
         </Form.Group>
 
         <div className="text-center">
-          <Button variant="primary" type="submit" className="mt-4">
+          <Button type="submit" className="mt-4">
             Submit
           </Button>
         </div>

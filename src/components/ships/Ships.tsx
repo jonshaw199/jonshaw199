@@ -1,9 +1,10 @@
 import { useGLTF } from "@react-three/drei";
 import { PrimitiveProps, useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Vector3 } from "three";
 
 const sceneBounds = 250;
+const shipSpeedRange = [0.01, 1];
 
 /**
  * Returns a random number between min (inclusive) and max (exclusive)
@@ -87,10 +88,10 @@ function getUpdateShipPositions({
   maxDistance: number;
 }): ShipPositions {
   // Update position
-  let curPosition = curShipPositions.src
+  const curPosition = curShipPositions.src
     .clone()
     .add(curShipPositions.dest.clone().normalize().multiplyScalar(shipSpeed));
-  let destPosition = curShipPositions.dest;
+  const destPosition = curShipPositions.dest;
 
   // Reset position if out of bounds
   if (
@@ -115,7 +116,7 @@ type ShipProps = Partial<PrimitiveProps> & {
 
 // Ship component to render the ship model and handle its own position updates
 function Ship({
-  speed = getRandomArbitrary(0.1, 1),
+  speed = getRandomArbitrary(shipSpeedRange[0], shipSpeedRange[1]),
   gltfAssetPath = "/models/cr90.glb",
   sceneBounds = 100,
   ...rest
