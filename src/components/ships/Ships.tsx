@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
 
 const sceneBounds = 250;
-const shipSpeedRange = [0.01, 1];
+const shipSpeedRange = [0.05, 1];
 
 const ships: { props: ShipProps; count: number }[] = [
   {
