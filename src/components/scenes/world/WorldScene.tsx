@@ -16,6 +16,7 @@ import {
 } from "../../../providers/projectProvider";
 import AboutMe from "../../about-me/AboutMe";
 import Contact from "../../contact/Contact";
+import Ships from "../../ships/Ships";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
 const sphereRadius = 300;
@@ -175,7 +176,7 @@ function SceneContent() {
 
   return (
     <>
-      <ambientLight />
+      <ambientLight  />
       <Sphere>
         {Object.values(tiles).map((tileProps) => (
           <Tile {...tileProps} key={tileProps.id} />
@@ -189,7 +190,8 @@ function SceneContent() {
           <meshMatcapMaterial color="white" matcap={matcapTexture} />
         </Text3D>
       </Sphere>
-      <OrbitControls reverseOrbit maxDistance={maxCameraDistance} />
+      <Ships />
+      <OrbitControls reverseOrbit />
       <Stars
           radius={50}         // Radius of the sphere where stars are placed
           depth={50}           // Star field depth
