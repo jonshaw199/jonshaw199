@@ -1,28 +1,110 @@
 import { useGLTF } from "@react-three/drei";
 import { PrimitiveProps, useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Vector3 } from "three";
 
 const sceneBounds = 250;
 
-// Utility functions
-function getRandomVector(min = -100, max = 100) {
-  return new Vector3(
-    Math.random() * (max - min) + min,
-    Math.random() * (max - min) + min
-  );
-}
-
-function getRandomSpeed(min = 0.1, max = 1) {
+/**
+ * Returns a random number between min (inclusive) and max (exclusive)
+ */
+function getRandomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-function getRandomDirection() {
+// Utility function to get a random point on the surface of a sphere
+function getRandomPointOnSphere(radius = sceneBounds) {
+  const theta = Math.random() * Math.PI * 2; // Angle around the equator
+  const phi = Math.acos(2 * Math.random() - 1); // Angle from the pole
+
+  // Convert spherical coordinates to Cartesian
+  const x = radius * Math.sin(phi) * Math.cos(theta);
+  const y = radius * Math.sin(phi) * Math.sin(theta);
+  const z = radius * Math.cos(phi);
+
+  return new Vector3(x, y, z);
+}
+
+function getRandomOffset(
+  minOffset = sceneBounds / 6,
+  maxOffset = sceneBounds / 3
+) {
+  // Generate a random offset within the specified range
+  const range = maxOffset - minOffset;
+
   return new Vector3(
-    Math.random() * 2 - 1,
-    Math.random() * 2 - 1,
-    Math.random() * 2 - 1
-  ).normalize();
+    (Math.random() - 0.5) * range + Math.sign(Math.random() - 0.5) * minOffset, // Offset in x direction
+    (Math.random() - 0.5) * range + Math.sign(Math.random() - 0.5) * minOffset, // Offset in y direction
+    (Math.random() - 0.5) * range + Math.sign(Math.random() - 0.5) * minOffset // Offset in z direction
+  );
+}
+
+type ShipPositions = {
+  src: Vector3;
+  dest: Vector3;
+};
+
+function getInitialShipPositions(): ShipPositions {
+  // Anywhere in scene
+  const src = new Vector3(
+    getRandomArbitrary(-sceneBounds, sceneBounds),
+    getRandomArbitrary(-sceneBounds, sceneBounds),
+    getRandomArbitrary(-sceneBounds, sceneBounds)
+  );
+
+  const dest = src
+    .clone()
+    .negate()
+    .normalize()
+    .multiplyScalar(sceneBounds)
+    .add(getRandomOffset());
+
+  return {
+    src,
+    dest,
+  };
+}
+
+function getResetShipPositions(): ShipPositions {
+  // Anywhere at edge of scene
+  const src = getRandomPointOnSphere();
+
+  const dest = src.clone().negate().add(getRandomOffset());
+
+  return {
+    src,
+    dest,
+  };
+}
+
+function getUpdateShipPositions({
+  curShipPositions,
+  shipSpeed,
+  maxDistance,
+}: {
+  curShipPositions: ShipPositions;
+  shipSpeed: number;
+  maxDistance: number;
+}): ShipPositions {
+  // Update position
+  let curPosition = curShipPositions.src
+    .clone()
+    .add(curShipPositions.dest.clone().normalize().multiplyScalar(shipSpeed));
+  let destPosition = curShipPositions.dest;
+
+  // Reset position if out of bounds
+  if (
+    Math.abs(curPosition.x) > maxDistance ||
+    Math.abs(curPosition.y) > maxDistance ||
+    Math.abs(curPosition.z) > maxDistance
+  ) {
+    return getResetShipPositions();
+  }
+
+  return {
+    src: curPosition,
+    dest: destPosition,
+  };
 }
 
 type ShipProps = Partial<PrimitiveProps> & {
@@ -33,7 +115,7 @@ type ShipProps = Partial<PrimitiveProps> & {
 
 // Ship component to render the ship model and handle its own position updates
 function Ship({
-  speed = getRandomSpeed(0.05, 0.3),
+  speed = getRandomArbitrary(0.1, 1),
   gltfAssetPath = "/models/cr90.glb",
   sceneBounds = 100,
   ...rest
@@ -41,38 +123,21 @@ function Ship({
   const { scene } = useGLTF(gltfAssetPath);
   const shipRef = useRef<any>(); // Ref for directly manipulating position
 
-  // Store position and direction in refs for efficient updates
-  const positionRef = useRef(getRandomVector(-sceneBounds, sceneBounds));
-  const directionRef = useRef(getRandomDirection());
+  const positionsRef = useRef(getInitialShipPositions());
 
   useFrame(() => {
-    // Update position
-    const newPosition = positionRef.current
-      .clone()
-      .add(directionRef.current.clone().multiplyScalar(speed));
+    const newPos = getUpdateShipPositions({
+      curShipPositions: positionsRef.current,
+      maxDistance: sceneBounds,
+      shipSpeed: speed,
+    });
 
-    // Reset position if out of bounds
-    if (
-      Math.abs(newPosition.x) > sceneBounds ||
-      Math.abs(newPosition.y) > sceneBounds ||
-      Math.abs(newPosition.z) > sceneBounds
-    ) {
-      positionRef.current = getRandomVector(-sceneBounds, sceneBounds);
-      directionRef.current = getRandomDirection();
-    } else {
-      positionRef.current.copy(newPosition);
-    }
+    positionsRef.current.src.copy(newPos.src);
+    positionsRef.current.dest.copy(newPos.dest);
 
     // Apply new position to ship
-    if (shipRef.current) {
-      shipRef.current.position.copy(positionRef.current);
-    }
-
-    // Calculate the ship's rotation to point in the direction of movement
-    const targetPosition = positionRef.current
-      .clone()
-      .add(directionRef.current);
-    shipRef.current.lookAt(targetPosition);
+    shipRef.current.position.copy(newPos.src);
+    shipRef.current.lookAt(newPos.dest);
   });
 
   return <primitive ref={shipRef} {...rest} object={scene.clone()} />;
@@ -112,24 +177,21 @@ export function DeathStar({
 
 const ships: { props: ShipProps; count: number }[] = [
   {
-    count: 20,
+    count: 10,
     props: {
-      speed: 0.1,
       gltfAssetPath: "/models/star_wars_laati_gunship/scene.gltf",
     },
   },
   {
-    count: 20,
+    count: 10,
     props: {
-      speed: 0.05,
       gltfAssetPath: "/models/cr90.glb",
       scale: 2,
     },
   },
   {
-    count: 2,
+    count: 3,
     props: {
-      speed: 0.15,
       gltfAssetPath: "/models/imperial_star_destroyer_mark_i/scene.gltf",
       scale: 0.03,
     },

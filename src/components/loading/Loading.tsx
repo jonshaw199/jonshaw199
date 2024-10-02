@@ -1,7 +1,5 @@
 import { PulseLoader, RingLoader } from "react-spinners";
 
-import styles from "./Loading.module.css";
-
 /* HTML: <div class="loader"></div>
 .loader {
     width: 60px;
