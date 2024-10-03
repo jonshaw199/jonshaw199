@@ -68,7 +68,7 @@ export default function ProjectCarousel() {
       <div
         style={{
           position: "absolute",
-          zIndex: 1,
+          zIndex: 2,
           display: "flex",
           justifyContent: "center",
           width: "100%",
@@ -79,7 +79,7 @@ export default function ProjectCarousel() {
       >
         <h1 className="m-0">Featured Projects</h1>
       </div>
-      <Carousel interval={3000} draggable={false}>
+      <Carousel interval={3000} draggable={false} fade>
         {slides}
       </Carousel>
     </>
