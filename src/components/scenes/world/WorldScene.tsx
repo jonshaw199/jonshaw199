@@ -171,12 +171,8 @@ function Sphere({
   );
 }
 
-const deathStarPosition = getObjectPosition({
-  theta: angles.north,
-  radius: tileRadius,
-});
-deathStarPosition.y = 20;
-deathStarPosition.x = 20;
+const deathStarPosition = new Vector3(100, 150, 400);
+const deathStarScale = 15;
 
 function SceneContent() {
   const [matcapTexture] = useMatcapTexture("CB4E88_F99AD6_F384C3_ED75B9");
@@ -198,12 +194,21 @@ function SceneContent() {
         </Text3D>
       </Sphere>
       <Ships />
-      <DeathStar position={deathStarPosition.toArray()} scale={1.5} />
+      <DeathStar
+        position={deathStarPosition.toArray()}
+        scale={deathStarScale}
+      />
       <OrbitControls reverseOrbit maxDistance={maxCameraDistance} />
       <Stars
         radius={50} // Radius of the sphere where stars are placed
         depth={50} // Star field depth
-        count={3000} // Number of stars
+        count={1000} // Number of stars
+        fade={true} // Fades stars based on camera position
+      />
+      <Stars
+        radius={150} // Radius of the sphere where stars are placed
+        depth={50} // Star field depth
+        count={5000} // Number of stars
         fade={true} // Fades stars based on camera position
       />
     </>
