@@ -198,7 +198,11 @@ function SceneContent() {
         position={deathStarPosition.toArray()}
         scale={deathStarScale}
       />
-      <OrbitControls reverseOrbit maxDistance={maxCameraDistance} />
+      <OrbitControls
+        reverseOrbit
+        maxDistance={maxCameraDistance}
+        enableZoom={false}
+      />
       <Stars
         radius={50} // Radius of the sphere where stars are placed
         depth={50} // Star field depth
