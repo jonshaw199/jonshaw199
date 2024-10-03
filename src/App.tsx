@@ -5,7 +5,7 @@ import { ProjectProvider } from "./providers/projectProvider";
 import _Loading from "./components/loading/Loading";
 import Fade from "./components/fade/Fade";
 
-const loadingTimeMs = 5000;
+const loadingTimeMs = 3000;
 
 function Tip() {
   return (
