@@ -7,6 +7,7 @@ type FormState = {
   name: string;
   email: string;
   message: string;
+  submit: string;
 };
 
 // Initial form state
@@ -14,6 +15,7 @@ const initialFormState: FormState = {
   name: "",
   email: "",
   message: "",
+  submit: "",
 };
 
 export default function Contact() {
@@ -50,30 +52,60 @@ export default function Contact() {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (validateForm()) {
       // Submit form data (this is where you would send the form data to a backend)
-      console.log("Form submitted:", formState);
+      console.info("Submitting form:", formState);
 
-      // Show success message and reset form
-      setSubmitted(true);
-      setFormState(initialFormState);
-      setErrors({});
+      try {
+        const response = await fetch("/submit-contact-form", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            name: formState.name,
+            email: formState.email,
+            message: formState.message,
+          }).toString(),
+        });
+
+        if (response.ok) {
+          // Show success message and reset form
+          setSubmitted(true);
+          setFormState(initialFormState);
+          setErrors({});
+          console.info("Form submitted successfully");
+        } else {
+          throw "Failed to submit form.";
+        }
+      } catch (error) {
+        const msg = `Error submitting form: ${error}`;
+        console.error(msg);
+        setErrors((errors) => ({ ...errors, submit: msg }));
+      }
     }
   };
 
   return (
     <div className="p-3 text-white">
       <h1 className="text-center">Contact Me</h1>
-      <Alert variant="info">
+      <Alert variant="info" className="border-0">
         While I'm currently employed, I'm always open to collaborating on fun
         projects and exploring new opportunities. Feel free to reach out using
         the form below. Let’s see what we can build together!
       </Alert>
       {submitted && (
-        <Alert variant="success">Thank you for your message!</Alert>
+        <Alert variant="success" className="border-0">
+          Thank you for your message!
+        </Alert>
+      )}
+      {!!errors.submit && (
+        <Alert variant="danger" className="border-0">
+          {errors.submit || "An error occurred when submitting form"}
+        </Alert>
       )}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formName">
