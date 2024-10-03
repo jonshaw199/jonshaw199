@@ -15,10 +15,7 @@ export default function Button({ className, ...rest }: ButtonProps) {
       variant="primary"
       {...rest}
       draggable={false}
-      //size="sm"
       className={classnames}
-      //href={project.url}
-      target="_blank"
     />
   );
 }

@@ -25,6 +25,7 @@ export default function AboutMe() {
         <Button
           href="https://linkedin.com/in/jonshaw199"
           className="d-flex gap-1 align-items-center text-white"
+          target="_blank"
         >
           <FaLinkedin color="white" />
           LinkedIn
@@ -32,6 +33,7 @@ export default function AboutMe() {
         <Button
           href="https://github.com/jonshaw199"
           className="d-flex gap-1 align-items-center text-white"
+          target="_blank"
         >
           <FaGithub color="white" />
           GitHub

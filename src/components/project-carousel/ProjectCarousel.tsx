@@ -53,6 +53,7 @@ export default function ProjectCarousel() {
                   size="sm"
                   className="d-flex gap-1 align-items-center text-white"
                   href={project.githubUrl}
+                  target="_blank"
                 >
                   <FaGithub />
                   GitHub
@@ -63,6 +64,7 @@ export default function ProjectCarousel() {
                   size="sm"
                   className="d-flex gap-1 align-items-center text-white"
                   href={project.liveUrl}
+                  target="_blank"
                 >
                   <img src="stewie.png" height={18} />
                   Live
