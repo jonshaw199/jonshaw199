@@ -6,6 +6,8 @@ import "./ProjectCarousel.css";
 import { FaGithub } from "react-icons/fa";
 import Button from "../button/Button";
 
+const carouselInterval = 6000;
+
 // Prevent "ghost" prev/next buttons when clicking and dragging
 // These attributes arent exposed in react
 // TODO: look for CSS-only workaround that still allows clicking (button) but not dragging
@@ -93,7 +95,7 @@ export default function ProjectCarousel() {
       >
         <h1 className="m-0">Featured Projects</h1>
       </div>
-      <Carousel interval={3000} draggable={false} fade>
+      <Carousel interval={carouselInterval} draggable={false} fade>
         {slides}
       </Carousel>
     </>
