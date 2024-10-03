@@ -3,8 +3,8 @@
     "id": "home",
     "url": "https://github.com/jonshaw199/home",
     "name": "Smart Home",
-    "description": "Introducing our state-of-the-art smart home solution, designed to seamlessly integrate monitoring, automation, and security into your daily life. Control your home with ease through our intuitive app, automate routines for ultimate convenience, and keep your loved ones safe with real-time alerts and monitoring. Transform your home into a smarter, safer, and more comfortable space where everything works together effortlessly. Experience the future of living today!",
-    "images": ["test1.jpg"],
+    "description": "Introducing our state-of-the-art smart home solution, allowing you to seamlessly connect, integrate, monitor, control, and automate a wide range of devices from a single app (available on web, iOS, and Android). This is an ongoing project; new devices are being added and the UI is under construction.",
+    "images": ["projects/home/square.png"],
     "tags": [
       "TypeScript",
       "Python",
@@ -27,17 +27,37 @@
   {
     "id": "shaw-family",
     "url": "https://github.com/jonshaw199/shaw-family",
-    "name": "Shaw Family Hub",
+    "name": "Family Website",
     "description": "Plan events, share media, and connect with family members.",
-    "images": ["test2.jpg"],
+    "images": ["projects/shaw-family/square.png"],
     "tags": ["TypeScript", "JavaScript", "Docker", "React", "Next", "Bootstrap"]
   },
   {
     "id": "conky",
     "url": "https://github.com/jonshaw199/conky",
-    "name": "System Monitor",
-    "description": "Desktop overlay",
-    "images": ["test1.jpg"],
+    "name": "System Monitor Widget",
+    "description": "This widget overlays the system wallpaper and provides critical information such as CPU temp, memory usage, and network speed.",
+    "images": ["projects/conky/portrait.png"],
     "tags": ["Lua", "Shell"]
+  },
+  {
+    "id": "messenger-clone",
+    "url": "https://github.com/jonshaw199/messenger-clone",
+    "name": "Facebook Messenger Clone",
+    "description": "Clone",
+    "images": ["projects/messenger-clone/square.png"],
+    "tags": [
+      "Node",
+      "Express",
+      "PostgreSQL",
+      "Socket.IO",
+      "Chai",
+      "Mocha",
+      "React",
+      "Redux",
+      "Socket.IO",
+      "Axios",
+      "Material UI"
+    ]
   }
 ]
