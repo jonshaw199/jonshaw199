@@ -20,7 +20,7 @@ function Loading() {
   const [showTip, setShowTip] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setShowTip(true), 50);
+    const timeout = setTimeout(() => setShowTip(true), 500);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -30,20 +30,22 @@ function Loading() {
         position: "absolute",
         top: 0,
         left: 0,
-        display: "grid",
-        gridTemplateRows: "50% 25% 1fr",
-        justifyItems: "center",
-        width: "100vw",
-        height: "100vh",
+        height: "100%",
+        width: "100%",
         background: "black",
         zIndex: 1,
         padding: "1rem",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        paddingTop: "25vh",
+        gap: "10px",
       }}
     >
-      <div style={{ alignSelf: "end" }}>
+      <div>
         <_Loading />
       </div>
-      <div style={{ alignSelf: "end" }}>
+      <div>
         <Fade show={showTip}>
           <Tip />
         </Fade>
