@@ -48,14 +48,26 @@ export default function ProjectCarousel() {
             </div>
             <div className="d-flex gap-2 align-items-center justify-content-center">
               <div>See it on:</div>
-              <Button
-                size="sm"
-                className="d-flex gap-1 align-items-center text-white"
-                href={project.url}
-              >
-                <FaGithub />
-                GitHub
-              </Button>
+              {!!project.githubUrl && (
+                <Button
+                  size="sm"
+                  className="d-flex gap-1 align-items-center text-white"
+                  href={project.githubUrl}
+                >
+                  <FaGithub />
+                  GitHub
+                </Button>
+              )}
+              {!!project.liveUrl && (
+                <Button
+                  size="sm"
+                  className="d-flex gap-1 align-items-center text-white"
+                  href={project.liveUrl}
+                >
+                  <img src="stewie.png" height={18} />
+                  Live
+                </Button>
+              )}
             </div>
           </Carousel.Caption>
         </Carousel.Item>

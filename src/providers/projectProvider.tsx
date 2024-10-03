@@ -2,9 +2,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 export type Project = {
   id: string;
-  url: string;
   name: string;
   description: string;
+  githubUrl?: string;
+  liveUrl?: string;
   tags: Set<string>;
   images: Set<string>;
 };

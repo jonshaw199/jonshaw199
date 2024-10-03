@@ -1,7 +1,7 @@
 [
   {
     "id": "home",
-    "url": "https://github.com/jonshaw199/home",
+    "githubUrl": "https://github.com/jonshaw199/home",
     "name": "Smart Home",
     "description": "Introducing our state-of-the-art smart home solution, allowing you to seamlessly connect, integrate, monitor, control, and automate a wide range of devices from a single app (available on web, iOS, and Android). This is an ongoing project; new devices are being added and the UI is under construction.",
     "images": ["projects/home/square.png"],
@@ -26,7 +26,8 @@
   },
   {
     "id": "shaw-family",
-    "url": "https://github.com/jonshaw199/shaw-family",
+    "githubUrl": "https://github.com/jonshaw199/shaw-family",
+    "liveUrl": "https://shawfamily.online",
     "name": "Family Website",
     "description": "Plan events, share media, and connect with family members.",
     "images": ["projects/shaw-family/square.png"],
@@ -34,7 +35,7 @@
   },
   {
     "id": "conky",
-    "url": "https://github.com/jonshaw199/conky",
+    "githubUrl": "https://github.com/jonshaw199/conky",
     "name": "System Monitor Widget",
     "description": "This widget overlays the system wallpaper and provides critical information such as CPU temp, memory usage, and network speed.",
     "images": ["projects/conky/portrait.png"],
@@ -42,7 +43,7 @@
   },
   {
     "id": "messenger-clone",
-    "url": "https://github.com/jonshaw199/messenger-clone",
+    "githubUrl": "https://github.com/jonshaw199/messenger-clone",
     "name": "Facebook Messenger Clone",
     "description": "Clone",
     "images": ["projects/messenger-clone/square.png"],
@@ -58,6 +59,22 @@
       "Socket.IO",
       "Axios",
       "Material UI"
+    ]
+  },
+  {
+    "id": "jonshaw199",
+    "githubUrl": "https://github.com/jonshaw199/jonshaw199",
+    "liveUrl": "https://jonshaw199.com",
+    "name": "jonshaw199 (This Website)",
+    "description": "My personal website.",
+    "images": ["projects/jonshaw199/square.png"],
+    "tags": [
+      "React",
+      "Three",
+      "React Three Fiber",
+      "Bootstrap",
+      "Vite",
+      "TypeScript"
     ]
   }
 ]
