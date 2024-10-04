@@ -157,7 +157,6 @@ function Ship({
     shipRef.current.lookAt(newPos.dest);
   });
 
-  console.log(models);
   return <primitive ref={shipRef} {...rest} object={models[modelId].clone()} />;
 }
 
