@@ -16,7 +16,8 @@ import {
 } from "../../../providers/projectProvider";
 import AboutMe from "../../about-me/AboutMe";
 import Contact from "../../contact/Contact";
-import Ships, { DeathStar } from "../../ships/Ships";
+import Ships from "../../ships/Ships";
+import { DeathStar } from "../../ships/DeathStar";
 
 const globalSpherePosition = new Vector3(0, 0, 0);
 const sphereRadius = 500;
