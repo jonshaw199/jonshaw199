@@ -7,6 +7,7 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"] // Maps `@/...` to the `src/` directory
-    }
+    },
+    "types": ["node"]
   }
 }
