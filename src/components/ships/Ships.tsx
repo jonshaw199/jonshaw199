@@ -1,5 +1,5 @@
 import { PrimitiveProps, useFrame, useLoader } from "@react-three/fiber";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { Group, Object3DEventMap } from "three";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import {
@@ -78,17 +78,29 @@ const models: { [id: string]: Model } = {
  * Preload GLTF assets once using useLoader
  */
 function usePreloadGLTFs() {
-  return Object.values(models).reduce(
-    (
-      map: { [id: string]: Group<Object3DEventMap> },
-      { gltfPath, id, transformer = (model) => model }
-    ) => {
-      const model = useLoader(GLTFLoader, gltfPath).scene;
-      const transformed = transformer(model);
-      map[id] = transformed;
-      return map;
-    },
-    {}
+  const modelArr = useMemo(() => Object.values(models), []);
+
+  const paths = useMemo(
+    () => modelArr.map(({ gltfPath }) => gltfPath),
+    [modelArr]
+  );
+
+  // TODO: consumers need `Suspense`
+  const loaded = useLoader(GLTFLoader, paths);
+
+  return useMemo(
+    () =>
+      loaded.reduce(
+        (map: { [id: string]: Group<Object3DEventMap> }, cur, i) => {
+          const transformed = modelArr[i].transformer
+            ? modelArr[i].transformer!(cur.scene)
+            : cur.scene;
+          map[modelArr[i].id] = transformed;
+          return map;
+        },
+        {}
+      ),
+    [loaded, modelArr]
   );
 }
 
