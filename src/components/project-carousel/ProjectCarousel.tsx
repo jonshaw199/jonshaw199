@@ -1,7 +1,7 @@
 import { Badge } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { useProjectContext } from "../../providers/projectProvider";
-import { ReactNode, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import "./ProjectCarousel.css";
 import { FaGithub } from "react-icons/fa";
 import Button from "../button/Button";
