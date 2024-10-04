@@ -8,7 +8,6 @@ const sceneBounds = 250;
 const shipSpeedRange = [0.05, 1];
 
 enum Model {
-  LAATI_GUNSHIP = "laatiGunship",
   CR90 = "cr90",
   STAR_DESTROYER = "starDestroyer",
 }
@@ -17,10 +16,6 @@ enum Model {
  * Preload GLTF assets once using useLoader
  */
 function usePreloadGLTFs() {
-  const laatiGunship = useLoader(
-    GLTFLoader,
-    "/models/star_wars_laati_gunship/scene.gltf"
-  ).scene;
   const cr90 = useLoader(GLTFLoader, "/models/cr90.glb").scene;
   const starDestroyer = useLoader(
     GLTFLoader,
@@ -28,7 +23,6 @@ function usePreloadGLTFs() {
   ).scene;
 
   return {
-    laatiGunship,
     cr90,
     starDestroyer,
   };
@@ -36,14 +30,7 @@ function usePreloadGLTFs() {
 
 const ships: { props: ShipProps; count: number }[] = [
   {
-    count: 10,
-    props: {
-      modelName: Model.LAATI_GUNSHIP,
-      scale: 0.5,
-    },
-  },
-  {
-    count: 10,
+    count: 15,
     props: {
       modelName: Model.CR90,
       scale: 2,
@@ -53,7 +40,7 @@ const ships: { props: ShipProps; count: number }[] = [
     count: 2,
     props: {
       modelName: Model.STAR_DESTROYER,
-      scale: 0.05,
+      scale: 0.04,
     },
   },
 ];
