@@ -6,6 +6,7 @@ import _Loading from "./components/loading/Loading";
 import Fade from "./components/fade/Fade";
 
 const loadingTimeMs = 3000;
+const tipTimeMs = 1000;
 
 function Tip() {
   return (
@@ -20,7 +21,7 @@ function Loading() {
   const [showTip, setShowTip] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setShowTip(true), 10);
+    const timeout = setTimeout(() => setShowTip(true), tipTimeMs);
     return () => clearTimeout(timeout);
   }, []);
 
