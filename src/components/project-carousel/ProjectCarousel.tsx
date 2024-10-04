@@ -90,7 +90,7 @@ export default function ProjectCarousel() {
           width: "100%",
           padding: "1rem",
           color: "white",
-          background: "rgba(0, 0, 0, 0.5)",
+          background: "rgba(0, 0, 0, 0.75)",
         }}
       >
         <h1 className="m-0">Featured Projects</h1>
