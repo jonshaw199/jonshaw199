@@ -45,7 +45,7 @@
     "id": "messenger-clone",
     "githubUrl": "https://github.com/jonshaw199/messenger-clone",
     "name": "Facebook Messenger Clone",
-    "description": "Clone",
+    "description": "A realtime, one-to-one chat app, inspired by Facebook Messenger.",
     "images": ["projects/messenger-clone/square.png"],
     "tags": [
       "Node",
