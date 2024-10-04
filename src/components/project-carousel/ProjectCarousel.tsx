@@ -1,10 +1,11 @@
 import { Badge } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { useProjectContext } from "../../providers/projectProvider";
-import { useEffect, useMemo } from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 import "./ProjectCarousel.css";
 import { FaGithub } from "react-icons/fa";
 import Button from "../button/Button";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 const carouselInterval = 6000;
 
@@ -90,12 +91,26 @@ export default function ProjectCarousel() {
           width: "100%",
           padding: "1rem",
           color: "white",
-          background: "rgba(0, 0, 0, 0.75)",
+          background: "rgba(0, 0, 0, 0.6)",
         }}
       >
         <h1 className="m-0">Featured Projects</h1>
       </div>
-      <Carousel interval={carouselInterval} draggable={false} fade>
+      <Carousel
+        interval={carouselInterval}
+        draggable={false}
+        fade
+        prevIcon={
+          <div className="carousel-control-prev-icon-custom">
+            <FaChevronLeft />
+          </div>
+        }
+        nextIcon={
+          <div className="carousel-control-next-icon-custom">
+            <FaChevronRight />
+          </div>
+        }
+      >
         {slides}
       </Carousel>
     </>
