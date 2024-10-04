@@ -25,13 +25,9 @@ function Loading() {
   return (
     <div
       style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
         height: "100vh",
         width: "100vw",
         background: "black",
-        zIndex: 1,
         padding: "1rem",
         display: "flex",
         flexDirection: "column",
