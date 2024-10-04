@@ -85,7 +85,6 @@ function usePreloadGLTFs() {
     [modelArr]
   );
 
-  // TODO: consumers need `Suspense`
   const loaded = useLoader(GLTFLoader, paths);
 
   return useMemo(

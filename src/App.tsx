@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import WorldScene from "./components/scenes/world/WorldScene";
 import { ProjectProvider } from "./providers/projectProvider";
 import _Loading from "./components/loading/Loading";
 import Fade from "./components/fade/Fade";
-
-const loadingTimeMs = 5000;
 
 function Tip() {
   return (
@@ -55,23 +53,12 @@ function Loading() {
 }
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, loadingTimeMs);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-
   return (
     <div style={{ height: "100vh", width: "100vw", background: "black" }}>
       <ProjectProvider>
-        <WorldScene />
-        {loading && <Loading />}
+        <Suspense fallback={<Loading />}>
+          <WorldScene />
+        </Suspense>
       </ProjectProvider>
     </div>
   );
