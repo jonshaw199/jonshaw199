@@ -18,7 +18,7 @@ function Loading() {
   const [showTip, setShowTip] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setShowTip(true), 10);
+    const timeout = setTimeout(() => setShowTip(true), 1000);
     return () => clearTimeout(timeout);
   }, []);
 
