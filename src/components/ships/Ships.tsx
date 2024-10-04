@@ -1,30 +1,58 @@
 import { useGLTF } from "@react-three/drei";
-import { PrimitiveProps, useFrame } from "@react-three/fiber";
+import { PrimitiveProps, useFrame, useLoader } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
+import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
 const sceneBounds = 250;
 const shipSpeedRange = [0.05, 1];
+
+enum Model {
+  LAATI_GUNSHIP = "laatiGunship",
+  CR90 = "cr90",
+  STAR_DESTROYER = "starDestroyer",
+}
+
+/**
+ * Preload GLTF assets once using useLoader
+ */
+function usePreloadGLTFs() {
+  const laatiGunship = useLoader(
+    GLTFLoader,
+    "/models/star_wars_laati_gunship/scene.gltf"
+  ).scene;
+  const cr90 = useLoader(GLTFLoader, "/models/cr90.glb").scene;
+  const starDestroyer = useLoader(
+    GLTFLoader,
+    "/models/imperial_star_destroyer_mark_i/scene.gltf"
+  ).scene;
+
+  return {
+    laatiGunship,
+    cr90,
+    starDestroyer,
+  };
+}
 
 const ships: { props: ShipProps; count: number }[] = [
   {
     count: 10,
     props: {
-      gltfAssetPath: "/models/star_wars_laati_gunship/scene.gltf",
+      modelName: Model.LAATI_GUNSHIP,
       scale: 0.5,
     },
   },
   {
     count: 10,
     props: {
-      gltfAssetPath: "/models/cr90.glb",
+      modelName: Model.CR90,
       scale: 2,
     },
   },
   {
     count: 2,
     props: {
-      gltfAssetPath: "/models/imperial_star_destroyer_mark_i/scene.gltf",
+      modelName: Model.STAR_DESTROYER,
       scale: 0.05,
     },
   },
@@ -134,20 +162,20 @@ function getUpdateShipPositions({
 
 type ShipProps = Partial<PrimitiveProps> & {
   speed?: number;
-  gltfAssetPath?: string;
+  modelName?: string;
   sceneBounds?: number;
 };
 
 // Ship component to render the ship model and handle its own position updates
 function Ship({
   speed = getRandomArbitrary(shipSpeedRange[0], shipSpeedRange[1]),
-  gltfAssetPath = "/models/cr90.glb",
+  modelName = Model.CR90,
   sceneBounds = 100,
   ...rest
 }: ShipProps) {
-  const { scene } = useGLTF(gltfAssetPath);
   const shipRef = useRef<any>();
   const positionsRef = useRef(getInitialShipPositions());
+  const models = usePreloadGLTFs();
 
   useFrame(() => {
     const newPos = getUpdateShipPositions({
@@ -164,7 +192,13 @@ function Ship({
     shipRef.current.lookAt(newPos.dest);
   });
 
-  return <primitive ref={shipRef} {...rest} object={scene.clone()} />;
+  return (
+    <primitive
+      ref={shipRef}
+      {...rest}
+      object={models[modelName as Model].clone()}
+    />
+  );
 }
 
 type DeathStarProps = {
