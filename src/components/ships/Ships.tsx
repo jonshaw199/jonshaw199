@@ -15,26 +15,62 @@ enum ModelId {
   CR90 = "cr90",
   STAR_DESTROYER = "starDestroyer",
   SULON_STAR = "sulonStar",
+  TIE_FIGHTER = "tieFighter",
+  X_WING = "xWing",
+  M_FALCON = "mFalcon",
 }
 
 type Model = {
   id: string;
   // Just support gltf/glb for now
   gltfPath: string;
+  transformer?: (model: Group<Object3DEventMap>) => Group<Object3DEventMap>;
 };
 
 const models: { [id: string]: Model } = {
   [ModelId.CR90]: {
     id: ModelId.CR90,
     gltfPath: "/models/cr90.glb",
+    transformer: (model) => {
+      model.scale.setScalar(2);
+      return model;
+    },
   },
   [ModelId.STAR_DESTROYER]: {
     id: ModelId.STAR_DESTROYER,
-    gltfPath: "/models/imperial_star_destroyer_mark_i/scene.gltf",
+    gltfPath: "/models/star_destroyer.glb",
+    transformer: (model) => {
+      model.scale.setScalar(0.08);
+      return model;
+    },
   },
   [ModelId.SULON_STAR]: {
     id: ModelId.SULON_STAR,
     gltfPath: "/models/sulon_star.glb",
+  },
+  [ModelId.TIE_FIGHTER]: {
+    id: ModelId.TIE_FIGHTER,
+    gltfPath: "/models/tie_fighter.glb",
+    transformer: (model) => {
+      model.scale.setScalar(0.4);
+      return model;
+    },
+  },
+  [ModelId.X_WING]: {
+    id: ModelId.X_WING,
+    gltfPath: "/models/xwing.glb",
+    transformer: (model) => {
+      model.scale.setScalar(0.06);
+      return model;
+    },
+  },
+  [ModelId.M_FALCON]: {
+    id: ModelId.M_FALCON,
+    gltfPath: "/models/mfalcon.glb",
+    transformer: (model) => {
+      model.scale.setScalar(0.01);
+      return model;
+    },
   },
 };
 
@@ -43,8 +79,13 @@ const models: { [id: string]: Model } = {
  */
 function usePreloadGLTFs() {
   return Object.values(models).reduce(
-    (map: { [id: string]: Group<Object3DEventMap> }, { gltfPath, id }) => {
-      map[id] = useLoader(GLTFLoader, gltfPath).scene;
+    (
+      map: { [id: string]: Group<Object3DEventMap> },
+      { gltfPath, id, transformer = (model) => model }
+    ) => {
+      const model = useLoader(GLTFLoader, gltfPath).scene;
+      const transformed = transformer(model);
+      map[id] = transformed;
       return map;
     },
     {}
@@ -53,24 +94,33 @@ function usePreloadGLTFs() {
 
 const ships: { props: ShipProps; count: number }[] = [
   {
-    count: 10,
+    count: 5,
     props: {
       modelId: ModelId.CR90,
-      scale: 2,
     },
   },
   {
     count: 2,
     props: {
       modelId: ModelId.STAR_DESTROYER,
-      scale: 0.04,
     },
   },
   {
     count: 10,
     props: {
-      modelId: ModelId.SULON_STAR,
-      scale: 0.005,
+      modelId: ModelId.TIE_FIGHTER,
+    },
+  },
+  {
+    count: 10,
+    props: {
+      modelId: ModelId.X_WING,
+    },
+  },
+  {
+    count: 3,
+    props: {
+      modelId: ModelId.M_FALCON,
     },
   },
 ];
