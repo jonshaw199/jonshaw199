@@ -13,8 +13,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/submit-contact-form": {
-        target: "https://localhost:444/submit-contact-form",
-        secure: false,
+        target: "http://localhost/submit-contact-form",
       },
     },
   },
