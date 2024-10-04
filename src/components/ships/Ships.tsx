@@ -103,55 +103,44 @@ function usePreloadGLTFs() {
   );
 }
 
-const ships: { props: ShipProps; count: number }[] = [
+const ships: { modelId: string; count: number }[] = [
   {
     count: 5,
-    props: {
-      modelId: ModelId.CR90,
-    },
+    modelId: ModelId.CR90,
   },
   {
     count: 2,
-    props: {
-      modelId: ModelId.STAR_DESTROYER,
-    },
+    modelId: ModelId.STAR_DESTROYER,
   },
   {
     count: 10,
-    props: {
-      modelId: ModelId.TIE_FIGHTER,
-    },
+    modelId: ModelId.TIE_FIGHTER,
   },
   {
     count: 10,
-    props: {
-      modelId: ModelId.X_WING,
-    },
+    modelId: ModelId.X_WING,
   },
   {
     count: 3,
-    props: {
-      modelId: ModelId.M_FALCON,
-    },
+    modelId: ModelId.M_FALCON,
   },
 ];
 
 type ShipProps = Partial<PrimitiveProps> & {
+  model: Group<Object3DEventMap>;
   speed?: number;
-  modelId?: string;
   sceneBounds?: number;
 };
 
 // Ship component to render the ship model and handle its own position updates
 function Ship({
   speed = getRandomArbitrary(shipSpeedRange[0], shipSpeedRange[1]),
-  modelId = ModelId.CR90,
+  model,
   sceneBounds = 100,
   ...rest
 }: ShipProps) {
   const shipRef = useRef<any>();
   const positionsRef = useRef(getInitialShipPositions(sceneBounds));
-  const models = usePreloadGLTFs();
 
   useFrame(() => {
     const newPos = getUpdateShipPositions({
@@ -168,24 +157,29 @@ function Ship({
     shipRef.current.lookAt(newPos.dest);
   });
 
-  return <primitive ref={shipRef} {...rest} object={models[modelId].clone()} />;
+  return <primitive ref={shipRef} {...rest} object={model.clone()} />;
 }
 
 // Ships component that initializes the ships and renders them
 export default function Ships() {
-  const _ships = ships.reduce((arr: ShipProps[], { count, props }) => {
-    return [
-      ...arr,
-      ...Array(count)
-        .fill(null)
-        .map(() => props),
-    ];
-  }, []);
+  const models = usePreloadGLTFs();
+
+  const _ships = ships.reduce(
+    (arr: Group<Object3DEventMap>[], { count, modelId }) => {
+      return [
+        ...arr,
+        ...Array(count)
+          .fill(null)
+          .map(() => models[modelId]),
+      ];
+    },
+    []
+  );
 
   return (
     <>
-      {_ships.map((props, i) => (
-        <Ship key={`Ship_${i}`} sceneBounds={sceneBounds} {...props} />
+      {_ships.map((model, i) => (
+        <Ship key={`Ship_${i}`} sceneBounds={sceneBounds} model={model} />
       ))}
     </>
   );
