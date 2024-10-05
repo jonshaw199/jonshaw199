@@ -16,7 +16,7 @@ export default function AboutMe() {
         <strong>I’m Jon, a software engineer based in California.</strong> I’m
         passionate about pushing the boundaries of innovation and solving
         real-world challenges. I specialize in delivering impactful software
-        solutions across various platforms, including web, mobile, and embedded
+        solutions across various platforms including web, mobile, and embedded
         systems.
       </p>
       <p>
