@@ -52,7 +52,7 @@ const models: { [id: string]: Model } = {
     id: ModelId.TIE_FIGHTER,
     gltfPath: "/models/tie_fighter.glb",
     transformer: (model) => {
-      model.scale.setScalar(0.4);
+      model.scale.setScalar(0.45);
       return model;
     },
   },
@@ -105,7 +105,7 @@ function usePreloadGLTFs() {
 
 const ships: { modelId: string; count: number }[] = [
   {
-    count: 5,
+    count: 7,
     modelId: ModelId.CR90,
   },
   {
@@ -117,11 +117,11 @@ const ships: { modelId: string; count: number }[] = [
     modelId: ModelId.TIE_FIGHTER,
   },
   {
-    count: 10,
+    count: 7,
     modelId: ModelId.X_WING,
   },
   {
-    count: 3,
+    count: 2,
     modelId: ModelId.M_FALCON,
   },
 ];
