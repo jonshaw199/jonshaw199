@@ -7,7 +7,7 @@ import { FaGithub } from "react-icons/fa";
 import Button from "../button/Button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-const carouselInterval = 6000;
+const carouselInterval = 8000;
 
 // Prevent "ghost" prev/next buttons when clicking and dragging
 // These attributes arent exposed in react
