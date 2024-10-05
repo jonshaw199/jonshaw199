@@ -93,9 +93,7 @@ export default function Contact() {
     <div className="p-3 text-white">
       <h1 className="text-center">Contact Me</h1>
       <Alert variant="info" className="border-0">
-        While I'm currently employed, I'm always open to collaborating on fun
-        projects and exploring new opportunities. Feel free to reach out using
-        the form below. Let’s see what we can build together!
+        Reach out using the form below. Let’s see what we can build together!
       </Alert>
       {submitted && (
         <Alert variant="success" className="border-0">

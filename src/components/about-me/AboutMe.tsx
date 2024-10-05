@@ -13,12 +13,15 @@ export default function AboutMe() {
         Hey there! <span className={styles.wave}>👋</span>
       </p>
       <p>
-        I’m Jon, a dedicated software engineer with a track record of delivering
-        impactful solutions across multiple platforms—whether it’s web, mobile,
-        or embedded systems. With a focus on quality, performance, and user
-        experience, I’ve been fortunate to work on diverse technologies that
-        push the boundaries of innovation. Please explore my work, and let’s
-        connect if you’d like to collaborate!
+        <strong>I’m Jon, a software engineer based in California.</strong> I’m
+        passionate about pushing the boundaries of innovation and solving
+        real-world challenges. I specialize in delivering impactful software
+        solutions across various platforms, including web, mobile, and embedded
+        systems.
+      </p>
+      <p>
+        Feel free to explore my site, check out my featured projects, and reach
+        out if you’re interested in collaborating!
       </p>
       <div className="d-flex gap-2 align-items-center">
         <div>Find me on: </div>

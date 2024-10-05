@@ -72,7 +72,7 @@ const tiles: { [id: string]: TileProps } = {
       yOffset: -10,
     }),
     children: <AboutMe />,
-    height: 300,
+    height: 350,
   },
   projects: {
     id: "projects",
