@@ -23,7 +23,7 @@ const globalSpherePosition = new Vector3(0, 0, 0);
 const sphereRadius = 500;
 const tileRadius = 45;
 const distanceFactor = 42;
-const maxCameraDistance = 15;
+const maxCameraDistance = 40;
 
 const namePosition = new Vector3(-28.5, 15, -40);
 const titlePosition = new Vector3(-23, 10, -40);
@@ -199,11 +199,7 @@ function SceneContent() {
         position={deathStarPosition.toArray()}
         scale={deathStarScale}
       />
-      <OrbitControls
-        reverseOrbit
-        maxDistance={maxCameraDistance}
-        enableZoom={false}
-      />
+      <OrbitControls reverseOrbit maxDistance={maxCameraDistance} />
       <Stars
         radius={50} // Radius of the sphere where stars are placed
         depth={50} // Star field depth
